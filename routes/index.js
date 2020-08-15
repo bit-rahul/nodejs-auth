@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
 
-router.get('/',(req,res)=>res.send("Welcome to NodeJS-Auth app!"));
+router.get('/',(req,res)=>res.render('welcome'));
 
 module.exports = router;
