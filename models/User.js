@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-//------------ Local User Schema ------------//
+//------------ User Schema ------------//
 const UserSchema = new mongoose.Schema({
   name: {
     type: String,
