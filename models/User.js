@@ -13,11 +13,15 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  date: {
-    type: Date,
-    default: Date.now
+  verified: {
+    type: Boolean,
+    default: false
+  },
+  resetLink: {
+    type: String,
+    default: ''
   }
-});
+}, { timestamps: true });
 
 const User = mongoose.model('User', UserSchema);
 
