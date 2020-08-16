@@ -5,26 +5,18 @@
                 <img src="/assets/secure-icon.png" alt="icon" width="20%" />
             </h1>
             <h2>
-                Login
+                Forgot Password
             </h2>
             <%- include ("./messages") %>
-            <form action="/auth/login" method="POST">
+            <form action="/auth/forgot" method="POST">
                 <div class="form-group">
                     <label for="email">Email</label>
                     <input type="email" id="email" name="email" class="form-control" placeholder="Enter Email" />
                 </div>
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" name="password" class="form-control"
-                        placeholder="Enter Password" />
-                </div>
-                <button type="submit" class="btn btn-primary btn-block">Login</button>
+                <button type="submit" class="btn btn-primary btn-block">Send me a password reset link</button>
             </form>
             <p class="mt-4">
-                New User? <a href="/auth/register">Register</a>
-            </p>
-            <p>
-                Forgot Password? <a href="/auth/forgot">Reset</a>
+                Remember your password? <a href="/auth/login">Login</a>
             </p>
         </div>
     </div>
