@@ -50,11 +50,6 @@ exports.registerHandle = (req, res) => {
                     password2
                 });
             } else {
-                const newUser = new User({
-                    name,
-                    email,
-                    password
-                });
 
                 const token = jwt.sign({ name, email, password }, JWT_KEY, { expiresIn: '20m' });
 
@@ -81,67 +76,79 @@ exports.registerHandle = (req, res) => {
 
                 transporter.sendMail(mailOptions, (error, info) => {
                     if (error) {
-                        return console.log(error);
+                        console.log(error);
+                        req.flash(
+                            'error_msg',
+                            'Something went wrong on our end. Please register again.'
+                        );
+                        res.redirect('/auth/login');
                     }
-                    console.log('Mail sent : %s', info.response);
+                    else {
+                        console.log('Mail sent : %s', info.response);
+                        req.flash(
+                            'success_msg',
+                            'Activation link sent to email ID. Please activate to log in.'
+                        );
+                        res.redirect('/auth/login');
+                    }
                 })
+
             }
         });
     }
 }
 
 exports.activateHandle = (req, res) => {
-    // const { token } = req.params.token;
-    res.send("hiii" + req.params.token);
-    // if (token) {
-    //     jwt.verify(token, JWT_KEY, (err, decodedToken) => {
-    //         if (err) {
-    //             return res.status(400).json({
-    //                 error: 'Incorrect or expired link! Please re-try.'
-    //             })
-    //         }
-    //         const { name, email, password } = decodedToken;
-    //         User.findOne({ email: email }).then(user => {
-    //             if (user) {
-    //                 //------------ User already exists ------------//
-    //                 errors.push({ msg: 'Email ID already registered' });
-    //                 res.render('register', {
-    //                     errors,
-    //                     name,
-    //                     email,
-    //                     password,
-    //                     password2
-    //                 });
-    //             } else {
-    //                 const newUser = new User({
-    //                     name,
-    //                     email,
-    //                     password
-    //                 });
+    const { token } = req.params.token;
+    if (token) {
+        jwt.verify(token, JWT_KEY, (err, decodedToken) => {
+            if (err) {
+                return res.status(400).json({
+                    error: 'Incorrect or expired link! Please re-try.'
+                })
+            }
+            const { name, email, password } = decodedToken;
+            User.findOne({ email: email }).then(user => {
+                if (user) {
+                    //------------ User already exists ------------//
+                    errors.push({ msg: 'Email ID already registered' });
+                    res.render('register', {
+                        errors,
+                        name,
+                        email,
+                        password,
+                        password2
+                    });
+                } else {
+                    const newUser = new User({
+                        name,
+                        email,
+                        password
+                    });
 
-    //                 bcryptjs.genSalt(10, (err, salt) => {
-    //                     bcryptjs.hash(newUser.password, salt, (err, hash) => {
-    //                         if (err) throw err;
-    //                         newUser.password = hash;
-    //                         newUser
-    //                             .save()
-    //                             .then(user => {
-    //                                 req.flash(
-    //                                     'success_msg',
-    //                                     'Registration successful. Please log in.'
-    //                                 );
-    //                                 res.redirect('/auth/login');
-    //                             })
-    //                             .catch(err => console.log(err));
-    //                     });
-    //                 });
-    //             }
-    //         });
-    //     })
-    // }
-    // else {
-    //     console.log("Account activation error!")
-    // }
+                    bcryptjs.genSalt(10, (err, salt) => {
+                        bcryptjs.hash(newUser.password, salt, (err, hash) => {
+                            if (err) throw err;
+                            newUser.password = hash;
+                            newUser
+                                .save()
+                                .then(user => {
+                                    req.flash(
+                                        'success_msg',
+                                        'Account activated. You can now log in.'
+                                    );
+                                    res.redirect('/auth/login');
+                                })
+                                .catch(err => console.log(err));
+                        });
+                    });
+                }
+            });
+        })
+    }
+    else {
+        console.log("Account activation error!")
+    }
 
 }
 
