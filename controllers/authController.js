@@ -64,7 +64,7 @@ exports.registerHandle = (req, res) => {
                     service: 'gmail',
                     auth: {
                         user: "nodejsa@gmail.com",
-                        pass: "nodejs123",
+                        pass: "nodeapp987",
                     },
                 });
 
@@ -205,7 +205,7 @@ exports.forgotPassword = (req, res) => {
                             service: 'gmail',
                             auth: {
                                 user: "nodejsa@gmail.com",
-                                pass: "nodejs123",
+                                pass: "nodeapp987",
                             },
                         });
 
