@@ -1,6 +1,8 @@
 const passport = require('passport');
 const bcryptjs = require('bcryptjs');
 const nodemailer = require('nodemailer');
+const { google } = require("googleapis");
+const OAuth2 = google.auth.OAuth2;
 const jwt = require('jsonwebtoken');
 const JWT_KEY = "jwtactive987";
 const JWT_RESET_KEY = "jwtreset987";
@@ -51,6 +53,17 @@ exports.registerHandle = (req, res) => {
                 });
             } else {
 
+                const oauth2Client = new OAuth2(
+                    "173872994719-pvsnau5mbj47h0c6ea6ojrl7gjqq1908.apps.googleusercontent.com", // ClientID
+                    "OKXIYR14wBB_zumf30EC__iJ", // Client Secret
+                    "https://developers.google.com/oauthplayground" // Redirect URL
+                );
+
+                oauth2Client.setCredentials({
+                    refresh_token: "1//04xY8jGNl97xfCgYIARAAGAQSNwF-L9IrlqJZOB4RI1RNJ0ZNwiWRn1nRl8SM-Yq1zXzadwmPBGv0OlSLaCqLGd3yDlisf6-izno"
+                });
+                const accessToken = oauth2Client.getAccessToken()
+
                 const token = jwt.sign({ name, email, password }, JWT_KEY, { expiresIn: '30m' });
                 const CLIENT_URL = 'http://' + req.headers.host;
 
@@ -63,8 +76,12 @@ exports.registerHandle = (req, res) => {
                 const transporter = nodemailer.createTransport({
                     service: 'gmail',
                     auth: {
+                        type: "OAuth2",
                         user: "nodejsa@gmail.com",
-                        pass: "nodeapp987",
+                        clientId: "173872994719-pvsnau5mbj47h0c6ea6ojrl7gjqq1908.apps.googleusercontent.com",
+                        clientSecret: "OKXIYR14wBB_zumf30EC__iJ",
+                        refreshToken: "1//04xY8jGNl97xfCgYIARAAGAQSNwF-L9IrlqJZOB4RI1RNJ0ZNwiWRn1nRl8SM-Yq1zXzadwmPBGv0OlSLaCqLGd3yDlisf6-izno",
+                        accessToken: accessToken
                     },
                 });
 
@@ -73,6 +90,7 @@ exports.registerHandle = (req, res) => {
                     from: '"Auth Admin" <nodejsa@gmail.com>', // sender address
                     to: email, // list of receivers
                     subject: "Account Verification: NodeJS Auth ✔", // Subject line
+                    generateTextFromHTML: true,
                     html: output, // html body
                 };
 
@@ -184,6 +202,17 @@ exports.forgotPassword = (req, res) => {
                 });
             } else {
 
+                const oauth2Client = new OAuth2(
+                    "173872994719-pvsnau5mbj47h0c6ea6ojrl7gjqq1908.apps.googleusercontent.com", // ClientID
+                    "OKXIYR14wBB_zumf30EC__iJ", // Client Secret
+                    "https://developers.google.com/oauthplayground" // Redirect URL
+                );
+
+                oauth2Client.setCredentials({
+                    refresh_token: "1//04xY8jGNl97xfCgYIARAAGAQSNwF-L9IrlqJZOB4RI1RNJ0ZNwiWRn1nRl8SM-Yq1zXzadwmPBGv0OlSLaCqLGd3yDlisf6-izno"
+                });
+                const accessToken = oauth2Client.getAccessToken()
+
                 const token = jwt.sign({ _id: user._id }, JWT_RESET_KEY, { expiresIn: '30m' });
                 const CLIENT_URL = 'http://' + req.headers.host;
                 const output = `
@@ -204,8 +233,12 @@ exports.forgotPassword = (req, res) => {
                         const transporter = nodemailer.createTransport({
                             service: 'gmail',
                             auth: {
+                                type: "OAuth2",
                                 user: "nodejsa@gmail.com",
-                                pass: "nodeapp987",
+                                clientId: "173872994719-pvsnau5mbj47h0c6ea6ojrl7gjqq1908.apps.googleusercontent.com",
+                                clientSecret: "OKXIYR14wBB_zumf30EC__iJ",
+                                refreshToken: "1//04xY8jGNl97xfCgYIARAAGAQSNwF-L9IrlqJZOB4RI1RNJ0ZNwiWRn1nRl8SM-Yq1zXzadwmPBGv0OlSLaCqLGd3yDlisf6-izno",
+                                accessToken: accessToken
                             },
                         });
 
@@ -336,7 +369,7 @@ exports.resetPassword = (req, res) => {
                         }
                     }
                 );
-                
+
             });
         });
     }
