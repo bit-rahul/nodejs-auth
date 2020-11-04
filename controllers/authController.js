@@ -52,11 +52,7 @@ exports.registerHandle = (req, res) => {
             } else {
 
                 const token = jwt.sign({ name, email, password }, JWT_KEY, { expiresIn: '30m' });
-
-                const CLIENT_URL;
-                if (req.headers.host.toString() !== "localhost:3006")
-                    CLIENT_URL = 'https://' + req.headers.host;
-                else CLIENT_URL = 'http://' + req.headers.host;
+                const CLIENT_URL = 'http://' + req.headers.host;
 
                 const output = `
                 <h2>Please click on below link to activate your account</h2>
@@ -189,12 +185,7 @@ exports.forgotPassword = (req, res) => {
             } else {
 
                 const token = jwt.sign({ _id: user._id }, JWT_RESET_KEY, { expiresIn: '30m' });
-
-                const CLIENT_URL;
-                if (req.headers.host.toString() !== "localhost:3006")
-                    CLIENT_URL = 'https://' + req.headers.host;
-                else CLIENT_URL = 'http://' + req.headers.host;
-
+                const CLIENT_URL = 'http://' + req.headers.host;
                 const output = `
                 <h2>Please click on below link to reset your account password</h2>
                 <p>${CLIENT_URL}/auth/forgot/${token}</p>
@@ -345,7 +336,7 @@ exports.resetPassword = (req, res) => {
                         }
                     }
                 );
-
+                
             });
         });
     }
