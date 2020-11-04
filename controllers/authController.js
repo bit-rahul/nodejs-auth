@@ -60,7 +60,7 @@ exports.registerHandle = (req, res) => {
                 );
 
                 oauth2Client.setCredentials({
-                    refresh_token: "1//04xY8jGNl97xfCgYIARAAGAQSNwF-L9IrlqJZOB4RI1RNJ0ZNwiWRn1nRl8SM-Yq1zXzadwmPBGv0OlSLaCqLGd3yDlisf6-izno"
+                    refresh_token: "1//04_Qja-CtwtMeCgYIARAAGAQSNwF-L9IrhEW1g-BGW98JP6u7DSEQnbdnvqlnsqOYTAeuPQ8R_vLrvrtwjFzCWUaLEnYapRw4U3M"
                 });
                 const accessToken = oauth2Client.getAccessToken()
 
@@ -80,7 +80,7 @@ exports.registerHandle = (req, res) => {
                         user: "nodejsa@gmail.com",
                         clientId: "173872994719-pvsnau5mbj47h0c6ea6ojrl7gjqq1908.apps.googleusercontent.com",
                         clientSecret: "OKXIYR14wBB_zumf30EC__iJ",
-                        refreshToken: "1//04xY8jGNl97xfCgYIARAAGAQSNwF-L9IrlqJZOB4RI1RNJ0ZNwiWRn1nRl8SM-Yq1zXzadwmPBGv0OlSLaCqLGd3yDlisf6-izno",
+                        refreshToken: "1//04_Qja-CtwtMeCgYIARAAGAQSNwF-L9IrhEW1g-BGW98JP6u7DSEQnbdnvqlnsqOYTAeuPQ8R_vLrvrtwjFzCWUaLEnYapRw4U3M",
                         accessToken: accessToken
                     },
                 });
@@ -209,7 +209,7 @@ exports.forgotPassword = (req, res) => {
                 );
 
                 oauth2Client.setCredentials({
-                    refresh_token: "1//04xY8jGNl97xfCgYIARAAGAQSNwF-L9IrlqJZOB4RI1RNJ0ZNwiWRn1nRl8SM-Yq1zXzadwmPBGv0OlSLaCqLGd3yDlisf6-izno"
+                    refresh_token: "1//04_Qja-CtwtMeCgYIARAAGAQSNwF-L9IrhEW1g-BGW98JP6u7DSEQnbdnvqlnsqOYTAeuPQ8R_vLrvrtwjFzCWUaLEnYapRw4U3M"
                 });
                 const accessToken = oauth2Client.getAccessToken()
 
@@ -237,7 +237,7 @@ exports.forgotPassword = (req, res) => {
                                 user: "nodejsa@gmail.com",
                                 clientId: "173872994719-pvsnau5mbj47h0c6ea6ojrl7gjqq1908.apps.googleusercontent.com",
                                 clientSecret: "OKXIYR14wBB_zumf30EC__iJ",
-                                refreshToken: "1//04xY8jGNl97xfCgYIARAAGAQSNwF-L9IrlqJZOB4RI1RNJ0ZNwiWRn1nRl8SM-Yq1zXzadwmPBGv0OlSLaCqLGd3yDlisf6-izno",
+                                refreshToken: "1//04_Qja-CtwtMeCgYIARAAGAQSNwF-L9IrhEW1g-BGW98JP6u7DSEQnbdnvqlnsqOYTAeuPQ8R_vLrvrtwjFzCWUaLEnYapRw4U3M",
                                 accessToken: accessToken
                             },
                         });
